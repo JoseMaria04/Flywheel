@@ -15,7 +15,7 @@ rootDir.walkTopDown()
     .maxDepth(2)
     .filter { it.isDirectory }
     .filter { it != rootDir }
-    .filter { it.name != "buildSrc" && it.name != "build-logic" }
+    .filter { it.name != "buildSrc" && it.name != "build-logic" && it.name != "neoforge" }
     .filter { it.resolve("build.gradle").exists() || it.resolve("build.gradle.kts").exists() }
     .forEach {
         val relativePath = it.toRelativeString(rootDir)

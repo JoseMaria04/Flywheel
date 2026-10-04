@@ -1,5 +1,7 @@
 package dev.engine_room.flywheel.backend.mixin;
 
+import net.minecraft.client.DeltaTracker;
+
 import org.joml.Vector3fc;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -20,7 +22,7 @@ public abstract class CameraMixin {
 	///
 	/// Also see {@link CameraRenderStateMixin} and {@link CameraRenderStateExtension} which add the field to {@link CameraRenderState}
 	@Inject(method = "extractRenderState", at = @At("TAIL"))
-	private void flywheel$extendRenderState(CameraRenderState cameraState, float cameraEntityPartialTicks, CallbackInfo ci) {
+	private void flywheel$extendRenderState(CameraRenderState cameraState, DeltaTracker deltaTracker, CallbackInfo ci) {
 		((CameraRenderStateExtension) cameraState).flywheel$getForwardVector().set(forwardVector());
 	}
 }

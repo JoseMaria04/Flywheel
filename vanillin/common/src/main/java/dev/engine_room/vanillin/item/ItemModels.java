@@ -37,7 +37,7 @@
 //import net.minecraft.client.Minecraft;
 //import net.minecraft.client.multiplayer.ClientLevel;
 //import net.minecraft.client.renderer.ItemBlockRenderTypes;
-//import net.minecraft.client.renderer.block.model.BakedQuad;
+//import net.minecraft.client.resources.model.geometry.BakedQuad;
 //import net.minecraft.client.renderer.block.model.ItemOverrides;
 //import net.minecraft.client.renderer.item.ItemModel;
 //import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -49,7 +49,7 @@
 //import net.minecraft.core.Direction;
 //import net.minecraft.core.component.DataComponents;
 //import net.minecraft.core.registries.Registries;
-//import net.minecraft.data.models.ItemModelGenerators;
+//import net.minecraft.client.data.models.ItemModelGenerators;
 //import net.minecraft.resources.ResourceLocation;
 //import net.minecraft.tags.TagKey;
 //import net.minecraft.util.RandomSource;

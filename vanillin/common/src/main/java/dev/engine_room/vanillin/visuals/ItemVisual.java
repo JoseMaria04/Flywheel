@@ -89,7 +89,7 @@
 //		float groundScaleZ = bakedModel.getTransforms().ground.scale.y();
 //		pPoseStack.translate(0.0F, f1 + 0.25F * groundScaleZ, 0.0F);
 //		float f3 = entity.getSpin(partialTick);
-//		pPoseStack.mulPose(Axis.YP.rotation(f3));
+//		pPoseStack.rotate(Axis.YP.rotation(f3));
 //		if (!flag) {
 //			float f7 = -0.0F * (float) (j - 1) * 0.5F * groundScaleX;
 //			float f8 = -0.0F * (float) (j - 1) * 0.5F * groundScaleY;

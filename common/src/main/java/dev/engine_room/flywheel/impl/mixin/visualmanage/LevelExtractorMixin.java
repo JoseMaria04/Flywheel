@@ -8,13 +8,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import dev.engine_room.flywheel.api.visualization.VisualizationManager;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.renderer.LevelRenderer;
+import net.minecraft.client.renderer.extract.LevelExtractor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-@Mixin(LevelRenderer.class)
-abstract class LevelRendererMixin {
+/// 26.3 moved block dirtying from LevelRenderer to LevelExtractor.
+@Mixin(LevelExtractor.class)
+abstract class LevelExtractorMixin {
 	@Shadow
 	private ClientLevel level;
 

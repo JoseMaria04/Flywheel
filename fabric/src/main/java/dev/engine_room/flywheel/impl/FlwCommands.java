@@ -48,7 +48,7 @@ public final class FlwCommands {
 						FabricFlwConfig.INSTANCE.save();
 
 						// Reload renderers so we can report the actual backend.
-						Minecraft.getInstance().levelRenderer.allChanged();
+						Minecraft.getInstance().levelExtractor.allChanged();
 
 						Backend actualBackend = BackendManager.currentBackend();
 						String actualIdStr = Backend.REGISTRY.getIdOrThrow(actualBackend)
@@ -64,7 +64,7 @@ public final class FlwCommands {
 						FabricFlwConfig.INSTANCE.save();
 
 						// Reload renderers so we can report the actual backend.
-						Minecraft.getInstance().levelRenderer.allChanged();
+						Minecraft.getInstance().levelExtractor.allChanged();
 
 						Backend actualBackend = BackendManager.currentBackend();
 						if (actualBackend != requestedBackend) {
@@ -93,7 +93,7 @@ public final class FlwCommands {
 							FabricFlwConfig.INSTANCE.limitUpdates = true;
 							FabricFlwConfig.INSTANCE.save();
 							context.getSource().sendFeedback(Component.translatable("command.flywheel.limit_updates.set.on"));
-							Minecraft.getInstance().levelRenderer.allChanged();
+							Minecraft.getInstance().levelExtractor.allChanged();
 							return Command.SINGLE_SUCCESS;
 						}))
 				.then(ClientCommands.literal("off")
@@ -101,7 +101,7 @@ public final class FlwCommands {
 							FabricFlwConfig.INSTANCE.limitUpdates = false;
 							FabricFlwConfig.INSTANCE.save();
 							context.getSource().sendFeedback(Component.translatable("command.flywheel.limit_updates.set.off"));
-							Minecraft.getInstance().levelRenderer.allChanged();
+							Minecraft.getInstance().levelExtractor.allChanged();
 							return Command.SINGLE_SUCCESS;
 						})));
 
@@ -205,7 +205,7 @@ public final class FlwCommands {
 	private static BlockPos getBlockPos(CommandContext<FabricClientCommandSource> context, String name) {
 		FabricClientCommandSource clientSource = context.getSource();
 		LocalPlayer player = clientSource.getPlayer();
-		CommandSourceStack commandSourceStack = new CommandSourceStack(CommandSource.NULL, clientSource.getPosition(), clientSource.getRotation(), null, clientSource.permissions(), player.getPlainTextName(), player.getDisplayName(), null, player);
+		CommandSourceStack commandSourceStack = new CommandSourceStack(CommandSource.NULL, clientSource.getPosition(), clientSource.getRotation(), null, clientSource.permissions(), null, player);
 		return context.getArgument(name, Coordinates.class).getBlockPos(commandSourceStack);
 	}
 }

@@ -30,7 +30,8 @@ uvec2 get_xy() {
     return uvec2(x, y);
 }
 
+// Reversed depth (26.3): the farthest depth in a region is the smallest value.
 float reduce_4(vec4 v) {
-    return max(max(v.x, v.y), max(v.z, v.w));
+    return min(min(v.x, v.y), min(v.z, v.w));
 }
 

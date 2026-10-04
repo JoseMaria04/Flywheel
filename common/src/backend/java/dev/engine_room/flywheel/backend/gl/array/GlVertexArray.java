@@ -5,7 +5,7 @@ import java.util.List;
 import org.lwjgl.opengl.GL32;
 import org.lwjgl.opengl.GL33C;
 
-import com.mojang.blaze3d.opengl.GlStateManager;
+import com.mojang.renderpearl.backend.opengl.GlStateManager;
 
 import dev.engine_room.flywheel.backend.gl.GlObject;
 import dev.engine_room.flywheel.backend.gl.GlStateTracker;

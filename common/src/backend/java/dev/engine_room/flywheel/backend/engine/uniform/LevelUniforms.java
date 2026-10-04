@@ -27,9 +27,13 @@ public final class LevelUniforms extends UniformWriter {
 		float partialTick = context.partialTick();
 		LevelRenderState levelRenderState = context.levelRenderState();
 
-		int skyColor = levelRenderState.skyRenderState.skyColor;
+		var skyColor = levelRenderState.skyRenderState.skyColor;
+		// not extracted yet on the very first frame
+		if (skyColor == null) {
+			skyColor = new org.joml.Vector3f(1f);
+		}
 		int cloudColor = levelRenderState.cloudColor;
-		ptr = writeVec4(ptr, ARGB.redFloat(skyColor), ARGB.greenFloat(skyColor), ARGB.blueFloat(skyColor), 1f);
+		ptr = writeVec4(ptr, skyColor.x(), skyColor.y(), skyColor.z(), 1f);
 		ptr = writeVec4(ptr, ARGB.redFloat(cloudColor), ARGB.greenFloat(cloudColor), ARGB.blueFloat(cloudColor), 1f);
 
 		ptr = writeVec3(ptr, LIGHT0_DIRECTION);

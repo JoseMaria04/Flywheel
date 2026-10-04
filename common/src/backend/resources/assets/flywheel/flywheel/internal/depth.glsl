@@ -1,9 +1,12 @@
+// Minecraft 26.3 renders with reversed depth: the near plane maps to 1 and the far plane to 0.
+// With either clip-control convention ([0, 1] or [-1, 1] NDC) the window depth is
+//     d = zNear * (zFar - e) / ((zFar - zNear) * e)
+// where e is the positive eye-space distance.
+
 float linearize_depth(float d, float zNear, float zFar) {
-    float z_n = 2.0 * d - 1.0;
-    return 2.0 * zNear * zFar / (zFar + zNear - z_n * (zFar - zNear));
+    return zNear * zFar / (d * (zFar - zNear) + zNear);
 }
 
 float delinearize_depth(float linearDepth, float zNear, float zFar) {
-    float z_n = (2.0 * zNear * zFar / linearDepth) - (zFar + zNear);
-    return 0.5 * (z_n / (zNear - zFar) + 1.0);
+    return zNear * (zFar - linearDepth) / ((zFar - zNear) * linearDepth);
 }

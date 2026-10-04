@@ -1,18 +1,19 @@
 package dev.engine_room.flywheel.backend.engine;
 
+import dev.engine_room.flywheel.backend.gl.GlTargets;
 import java.util.Comparator;
 
 import org.jspecify.annotations.Nullable;
 import org.lwjgl.opengl.GL11;
 
-import com.mojang.blaze3d.opengl.GlConst;
-import com.mojang.blaze3d.opengl.GlSampler;
-import com.mojang.blaze3d.opengl.GlStateManager;
-import com.mojang.blaze3d.opengl.GlTextureView;
-import com.mojang.blaze3d.pipeline.ColorTargetState;
+import com.mojang.renderpearl.backend.opengl.GlConst;
+import com.mojang.renderpearl.backend.opengl.GlSampler;
+import com.mojang.renderpearl.backend.opengl.GlStateManager;
+import com.mojang.renderpearl.backend.opengl.GlTextureView;
+import com.mojang.renderpearl.api.pipeline.ColorTargetState;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.textures.FilterMode;
-import com.mojang.blaze3d.textures.GpuSampler;
+import com.mojang.renderpearl.api.textures.FilterMode;
+import com.mojang.renderpearl.api.textures.GpuSampler;
 
 import dev.engine_room.flywheel.api.material.DepthTest;
 import dev.engine_room.flywheel.api.material.Material;
@@ -81,6 +82,8 @@ public final class MaterialRenderState {
 		}
 	}
 
+	// DepthTest values are expressed for conventional depth (smaller = closer). Minecraft 26.3 renders with
+	// reversed depth (larger = closer), so the ordered comparisons are mirrored here.
 	private static void setupDepthTest(DepthTest depthTest) {
 		switch (depthTest) {
 		case OFF -> {
@@ -92,7 +95,7 @@ public final class MaterialRenderState {
 		}
 		case LESS -> {
 			GlStateManager._enableDepthTest();
-			GlStateManager._depthFunc(GlConst.GL_LESS);
+			GlStateManager._depthFunc(GlConst.GL_GREATER);  // LESS
 		}
 		case EQUAL -> {
 			GlStateManager._enableDepthTest();
@@ -100,11 +103,11 @@ public final class MaterialRenderState {
 		}
 		case LEQUAL -> {
 			GlStateManager._enableDepthTest();
-			GlStateManager._depthFunc(GlConst.GL_LEQUAL);
+			GlStateManager._depthFunc(GlConst.GL_GEQUAL);  // LEQUAL
 		}
 		case GREATER -> {
 			GlStateManager._enableDepthTest();
-			GlStateManager._depthFunc(GlConst.GL_GREATER);
+			GlStateManager._depthFunc(GlConst.GL_LESS);  // GREATER
 		}
 		case NOTEQUAL -> {
 			GlStateManager._enableDepthTest();
@@ -112,7 +115,7 @@ public final class MaterialRenderState {
 		}
 		case GEQUAL -> {
 			GlStateManager._enableDepthTest();
-			GlStateManager._depthFunc(GlConst.GL_GEQUAL);
+			GlStateManager._depthFunc(GlConst.GL_LEQUAL);  // GEQUAL
 		}
 		case ALWAYS -> {
 			GlStateManager._enableDepthTest();
@@ -124,26 +127,26 @@ public final class MaterialRenderState {
 	private static void setupTransparency(Transparency transparency) {
 		switch (transparency) {
 		case OPAQUE -> {
-			GlStateManager._disableBlend();
+			GlTargets.disableBlend();
 		}
 		case ADDITIVE -> {
-			GlStateManager._enableBlend();
+			GlTargets.enableBlend();
 			GlStateManager._blendFuncSeparate(GlConst.GL_ONE, GlConst.GL_ONE, GlConst.GL_ONE, GlConst.GL_ONE);
 		}
 		case LIGHTNING -> {
-			GlStateManager._enableBlend();
+			GlTargets.enableBlend();
 			GlStateManager._blendFuncSeparate(GlConst.GL_SRC_ALPHA, GlConst.GL_ONE, GlConst.GL_SRC_ALPHA, GlConst.GL_ONE);
 		}
 		case GLINT -> {
-			GlStateManager._enableBlend();
+			GlTargets.enableBlend();
 			GlStateManager._blendFuncSeparate(GlConst.GL_SRC_COLOR, GlConst.GL_ONE, GlConst.GL_ZERO, GlConst.GL_ONE);
 		}
 		case CRUMBLING -> {
-			GlStateManager._enableBlend();
+			GlTargets.enableBlend();
 			GlStateManager._blendFuncSeparate(GlConst.GL_DST_COLOR, GlConst.GL_SRC_COLOR, GlConst.GL_ONE, GlConst.GL_ZERO);
 		}
 		case TRANSLUCENT -> {
-			GlStateManager._enableBlend();
+			GlTargets.enableBlend();
 			GlStateManager._blendFuncSeparate(GlConst.GL_SRC_ALPHA, GlConst.GL_ONE_MINUS_SRC_ALPHA, GlConst.GL_ONE, GlConst.GL_ONE_MINUS_SRC_ALPHA);
 		}
 		}

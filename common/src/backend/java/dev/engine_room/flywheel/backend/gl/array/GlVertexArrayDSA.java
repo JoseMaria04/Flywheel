@@ -7,7 +7,7 @@ import java.util.List;
 import org.lwjgl.opengl.GL45C;
 import org.lwjgl.system.Checks;
 
-import com.mojang.blaze3d.opengl.GlConst;
+import com.mojang.renderpearl.backend.opengl.GlConst;
 
 import dev.engine_room.flywheel.backend.gl.GlCompat;
 import net.minecraft.util.Util;
@@ -60,9 +60,9 @@ public class GlVertexArrayDSA extends GlVertexArray {
 
 			if (!attribute.equals(attributes[attribIndex])) {
 				if (attribute instanceof VertexAttribute.Float f) {
-					GL45C.glVertexArrayAttribFormat(handle, attribIndex, f.size(), GlConst.toGl(f.type()), f.normalized(), offset);
+					GL45C.glVertexArrayAttribFormat(handle, attribIndex, f.size(), f.type().glType(), f.normalized(), offset);
 				} else if (attribute instanceof VertexAttribute.Int vi) {
-					GL45C.glVertexArrayAttribIFormat(handle, attribIndex, vi.size(), GlConst.toGl(vi.type()), offset);
+					GL45C.glVertexArrayAttribIFormat(handle, attribIndex, vi.size(), vi.type().glType(), offset);
 				}
 				attributes[attribIndex] = attribute;
 			}

@@ -1,5 +1,7 @@
 package dev.engine_room.flywheel.lib.visual;
 
+import net.minecraft.util.LightCoordsUtil;
+
 import java.util.Iterator;
 
 import org.jspecify.annotations.Nullable;
@@ -100,11 +102,11 @@ public abstract class AbstractBlockEntityVisual<T extends BlockEntity> extends A
 	}
 
 	protected int computePackedLight() {
-		return LevelRenderer.getLightCoords(level, pos);
+		return LightCoordsUtil.getLightCoords(level, pos);
 	}
 
 	protected void relight(BlockPos pos, @Nullable FlatLit... instances) {
-		FlatLit.relight(LevelRenderer.getLightCoords(level, pos), instances);
+		FlatLit.relight(LightCoordsUtil.getLightCoords(level, pos), instances);
 	}
 
 	protected void relight(@Nullable FlatLit... instances) {
@@ -112,7 +114,7 @@ public abstract class AbstractBlockEntityVisual<T extends BlockEntity> extends A
 	}
 
 	protected void relight(BlockPos pos, Iterator<@Nullable FlatLit> instances) {
-		FlatLit.relight(LevelRenderer.getLightCoords(level, pos), instances);
+		FlatLit.relight(LightCoordsUtil.getLightCoords(level, pos), instances);
 	}
 
 	protected void relight(Iterator<@Nullable FlatLit> instances) {
@@ -120,7 +122,7 @@ public abstract class AbstractBlockEntityVisual<T extends BlockEntity> extends A
 	}
 
 	protected void relight(BlockPos pos, Iterable<@Nullable FlatLit> instances) {
-		FlatLit.relight(LevelRenderer.getLightCoords(level, pos), instances);
+		FlatLit.relight(LightCoordsUtil.getLightCoords(level, pos), instances);
 	}
 
 	protected void relight(Iterable<@Nullable FlatLit> instances) {

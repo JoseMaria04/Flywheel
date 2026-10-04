@@ -54,7 +54,9 @@ public class FlwLibLinkImpl implements FlwLibLink {
 		EntityRenderer<? super T, ?> renderer = Minecraft.getInstance()
 				.getEntityRenderDispatcher()
 				.getRenderer(entity);
-		return ((EntityRendererAccessor) renderer).flywheel$getBoundingBoxForCulling(entity);
+		// 26.3 interpolates the culling box; use the current frame's partial tick
+		float partialTicks = Minecraft.getInstance().getDeltaTracker().getGameTimeDeltaPartialTick(false);
+		return ((EntityRendererAccessor) renderer).flywheel$getBoundingBoxForCulling(entity, partialTicks);
 	}
 
 	@Override

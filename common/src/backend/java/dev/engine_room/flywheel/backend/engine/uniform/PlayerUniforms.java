@@ -63,7 +63,7 @@ public final class PlayerUniforms extends UniformWriter {
 
 	private static long writeTeamColor(long ptr, @Nullable PlayerTeam team) {
 		if (team != null) {
-			Integer color = team.getColor().getColor();
+			Integer color = team.getColor().map(c -> c.rgb()).orElse(null);
 
 			if (color != null) {
 				int red = ARGB.red(color);

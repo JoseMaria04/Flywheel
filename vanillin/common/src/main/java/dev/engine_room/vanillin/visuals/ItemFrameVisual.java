@@ -151,7 +151,7 @@
 //	}
 //
 //	private int getLightVal(int glowLightVal, int regularLightVal) {
-//		return entity.getType() == EntityType.GLOW_ITEM_FRAME ? glowLightVal : regularLightVal;
+//		return entity.getType() == EntityTypes.GLOW_ITEM_FRAME ? glowLightVal : regularLightVal;
 //	}
 //
 //	protected int getSkyLightLevel(BlockPos pos) {
@@ -163,11 +163,11 @@
 //	}
 //
 //	protected int getBlockLightLevel(BlockPos pos) {
-//		return entity.getType() == EntityType.GLOW_ITEM_FRAME ? Math.max(5, getBlockLightLevelBase(pos)) : getBlockLightLevelBase(pos);
+//		return entity.getType() == EntityTypes.GLOW_ITEM_FRAME ? Math.max(5, getBlockLightLevelBase(pos)) : getBlockLightLevelBase(pos);
 //	}
 //
 //	public static BlockState getFrameBlockState(ItemFrame entity, ItemStack item) {
-//		boolean isGlowFrame = entity.getType() == EntityType.GLOW_ITEM_FRAME;
+//		boolean isGlowFrame = entity.getType() == EntityTypes.GLOW_ITEM_FRAME;
 //		boolean map = !item.isEmpty() && entity.getFramedMapId(item) != null;
 //		return BlockStateDefinitions.getItemFrameFakeState(isGlowFrame, map);
 //	}

@@ -1,5 +1,7 @@
 package dev.engine_room.vanillin;
 
+import net.minecraft.world.level.block.entity.BlockEntityTypes;
+import net.minecraft.world.entity.EntityTypes;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -37,48 +39,48 @@ public class VanillaVisuals {
 	public static final boolean EXPERIMENTAL = VanillinXplat.INSTANCE.isDevelopmentEnvironment();
 
 	public static void init() {
-		builder(BlockEntityType.CHEST)
+		builder(BlockEntityTypes.CHEST)
 				.factory(ChestVisual::new)
 				.apply(STABLE);
-		builder(BlockEntityType.ENDER_CHEST)
+		builder(BlockEntityTypes.ENDER_CHEST)
 				.factory(ChestVisual::new)
 				.apply(STABLE);
-		builder(BlockEntityType.TRAPPED_CHEST)
+		builder(BlockEntityTypes.TRAPPED_CHEST)
 				.factory(ChestVisual::new)
 				.apply(STABLE);
 
-		builder(BlockEntityType.BELL)
+		builder(BlockEntityTypes.BELL)
 				.factory(BellVisual::new)
 				.apply(STABLE);
 
-		builder(BlockEntityType.SHULKER_BOX)
+		builder(BlockEntityTypes.SHULKER_BOX)
 				.factory(ShulkerBoxVisual::new)
 				.apply(STABLE);
 
-		builder(EntityType.BLOCK_DISPLAY).factory(BlockDisplayVisual::new)
+		builder(EntityTypes.BLOCK_DISPLAY).factory(BlockDisplayVisual::new)
 				.apply(STABLE);
 
 		// FIXME 1.21.11: port
-//		composable(EntityType.ITEM_DISPLAY).with(element(VisualElements.ITEM_DISPLAY).build())
+//		composable(EntityTypes.ITEM_DISPLAY).with(element(VisualElements.ITEM_DISPLAY).build())
 //				.shouldVisualize((ctx, e) -> ItemDisplayVisual.shouldVisualize(e))
 //				.build()
 //				.skipVanillaRender(ItemDisplayVisual::shouldVisualize)
 //				.apply(EXPERIMENTAL);
 
-		minecart(EntityType.CHEST_MINECART, ModelLayers.CHEST_MINECART)
+		minecart(EntityTypes.CHEST_MINECART, ModelLayers.CHEST_MINECART)
 				.apply(STABLE);
-		minecart(EntityType.COMMAND_BLOCK_MINECART, ModelLayers.COMMAND_BLOCK_MINECART)
+		minecart(EntityTypes.COMMAND_BLOCK_MINECART, ModelLayers.COMMAND_BLOCK_MINECART)
 				.apply(STABLE);
-		minecart(EntityType.FURNACE_MINECART, ModelLayers.FURNACE_MINECART)
+		minecart(EntityTypes.FURNACE_MINECART, ModelLayers.FURNACE_MINECART)
 				.apply(STABLE);
-		minecart(EntityType.HOPPER_MINECART, ModelLayers.HOPPER_MINECART)
+		minecart(EntityTypes.HOPPER_MINECART, ModelLayers.HOPPER_MINECART)
 				.apply(STABLE);
-		minecart(EntityType.MINECART, ModelLayers.MINECART)
+		minecart(EntityTypes.MINECART, ModelLayers.MINECART)
 				.apply(STABLE);
-		minecart(EntityType.SPAWNER_MINECART, ModelLayers.SPAWNER_MINECART)
+		minecart(EntityTypes.SPAWNER_MINECART, ModelLayers.SPAWNER_MINECART)
 				.apply(STABLE);
 
-		composable(EntityType.TNT_MINECART)
+		composable(EntityTypes.TNT_MINECART)
 				.with(element(VisualElements.SHADOW).configure(new ShadowElement.Config(0.7f, ShadowElement.Config.DEFAULT_STRENGTH))
 						.build())
 				.with(element(VisualElements.FIRE).build())
@@ -88,11 +90,11 @@ public class VanillaVisuals {
 				.apply(STABLE);
 
 		// FIXME 1.21.11: port
-//		itemFrame(EntityType.ITEM_FRAME).apply(EXPERIMENTAL);
-//		itemFrame(EntityType.GLOW_ITEM_FRAME).apply(EXPERIMENTAL);
+//		itemFrame(EntityTypes.ITEM_FRAME).apply(EXPERIMENTAL);
+//		itemFrame(EntityTypes.GLOW_ITEM_FRAME).apply(EXPERIMENTAL);
 
 		// FIXME 1.21.11: port
-//		composable(EntityType.ITEM)
+//		composable(EntityTypes.ITEM)
 //				.with(element(VisualElements.FIRE).build())
 //				.with(element(VisualElements.SHADOW).configure(new ShadowElement.Config(0.15f, 0.75f))
 //						.build())

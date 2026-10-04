@@ -1,9 +1,10 @@
 package dev.engine_room.flywheel.backend;
 
+import dev.engine_room.flywheel.backend.gl.array.GlAttribType;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mojang.blaze3d.vertex.VertexFormatElement;
 
 import dev.engine_room.flywheel.api.layout.ArrayElementType;
 import dev.engine_room.flywheel.api.layout.ElementType;
@@ -80,31 +81,31 @@ public class LayoutAttributes {
 		}
 	}
 
-	private static VertexFormatElement.Type toGlType(IntegerRepr repr) {
+	private static GlAttribType toGlType(IntegerRepr repr) {
 		return switch (repr) {
-			case BYTE -> VertexFormatElement.Type.BYTE;
-			case SHORT -> VertexFormatElement.Type.SHORT;
-			case INT -> VertexFormatElement.Type.INT;
+			case BYTE -> GlAttribType.BYTE;
+			case SHORT -> GlAttribType.SHORT;
+			case INT -> GlAttribType.INT;
 		};
 	}
 
-	private static VertexFormatElement.Type toGlType(UnsignedIntegerRepr repr) {
+	private static GlAttribType toGlType(UnsignedIntegerRepr repr) {
 		return switch (repr) {
-			case UNSIGNED_BYTE -> VertexFormatElement.Type.UBYTE;
-			case UNSIGNED_SHORT -> VertexFormatElement.Type.USHORT;
-			case UNSIGNED_INT -> VertexFormatElement.Type.UINT;
+			case UNSIGNED_BYTE -> GlAttribType.UBYTE;
+			case UNSIGNED_SHORT -> GlAttribType.USHORT;
+			case UNSIGNED_INT -> GlAttribType.UINT;
 		};
 	}
 
-	private static VertexFormatElement.Type toGlType(FloatRepr repr) {
+	private static GlAttribType toGlType(FloatRepr repr) {
 		return switch (repr) {
-			case BYTE, NORMALIZED_BYTE -> VertexFormatElement.Type.BYTE;
-			case UNSIGNED_BYTE, NORMALIZED_UNSIGNED_BYTE -> VertexFormatElement.Type.UBYTE;
-			case SHORT, NORMALIZED_SHORT -> VertexFormatElement.Type.SHORT;
-			case UNSIGNED_SHORT, NORMALIZED_UNSIGNED_SHORT -> VertexFormatElement.Type.USHORT;
-			case INT, NORMALIZED_INT -> VertexFormatElement.Type.INT;
-			case UNSIGNED_INT, NORMALIZED_UNSIGNED_INT -> VertexFormatElement.Type.UINT;
-			case FLOAT -> VertexFormatElement.Type.FLOAT;
+			case BYTE, NORMALIZED_BYTE -> GlAttribType.BYTE;
+			case UNSIGNED_BYTE, NORMALIZED_UNSIGNED_BYTE -> GlAttribType.UBYTE;
+			case SHORT, NORMALIZED_SHORT -> GlAttribType.SHORT;
+			case UNSIGNED_SHORT, NORMALIZED_UNSIGNED_SHORT -> GlAttribType.USHORT;
+			case INT, NORMALIZED_INT -> GlAttribType.INT;
+			case UNSIGNED_INT, NORMALIZED_UNSIGNED_INT -> GlAttribType.UINT;
+			case FLOAT -> GlAttribType.FLOAT;
 		};
 	}
 

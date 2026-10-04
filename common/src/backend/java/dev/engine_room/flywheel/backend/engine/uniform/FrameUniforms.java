@@ -1,5 +1,6 @@
 package dev.engine_room.flywheel.backend.engine.uniform;
 
+import dev.engine_room.flywheel.backend.gl.GlTargets;
 import org.joml.Math;
 import org.joml.Matrix4f;
 import org.joml.Vector2f;
@@ -10,7 +11,6 @@ import dev.engine_room.flywheel.api.backend.RenderContext;
 import dev.engine_room.flywheel.api.visualization.VisualizationManager;
 import dev.engine_room.flywheel.backend.engine.indirect.DepthPyramid;
 import dev.engine_room.flywheel.backend.extension.CameraRenderStateExtension;
-import dev.engine_room.flywheel.backend.mixin.LevelRendererAccessor;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
@@ -163,7 +163,8 @@ public final class FrameUniforms extends UniformWriter {
 	}
 
 	private static long writeTime(long ptr, RenderContext context) {
-		int ticks = ((LevelRendererAccessor) context.renderer()).flywheel$getTicks();
+		// 26.3 removed LevelRenderer.ticks; the client level game time advances at the same rate
+		int ticks = (int) context.level().getGameTime();
 		float partialTick = context.partialTick();
 		float renderTicks = ticks + partialTick;
 		float renderSeconds = renderTicks / 20f;
@@ -194,7 +195,7 @@ public final class FrameUniforms extends UniformWriter {
 
 	private static long writeCullData(long ptr, CameraRenderState cameraRenderState) {
 		var mc = Minecraft.getInstance();
-		var mainRenderTarget = mc.getMainRenderTarget();
+		var mainRenderTarget = GlTargets.mainTarget();
 
 		int pyramidWidth = DepthPyramid.mip0Size(mainRenderTarget.width);
 		int pyramidHeight = DepthPyramid.mip0Size(mainRenderTarget.height);

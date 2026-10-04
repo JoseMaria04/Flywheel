@@ -1,12 +1,13 @@
 package dev.engine_room.flywheel.backend.engine.instancing;
 
+import dev.engine_room.flywheel.backend.gl.GlTargets;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.textures.FilterMode;
-import com.mojang.blaze3d.textures.GpuSampler;
+import com.mojang.renderpearl.api.textures.FilterMode;
+import com.mojang.renderpearl.api.textures.GpuSampler;
 
 import dev.engine_room.flywheel.api.backend.Engine;
 import dev.engine_room.flywheel.api.instance.Instance;
@@ -123,7 +124,7 @@ public class InstancedDrawManager extends DrawManager<InstancedInstancer<?>> {
 		TextureBinder.bindLightAndOverlay();
 		light.bind();
 
-		TextureBinder.bindRenderTarget(Minecraft.getInstance().getMainRenderTarget());
+		TextureBinder.bindRenderTarget(GlTargets.mainTarget());
 
 
 		submitDraws();
@@ -269,7 +270,7 @@ public class InstancedDrawManager extends DrawManager<InstancedInstancer<?>> {
 		vao.bindForDraw();
 
 		TextureBinder.bindLightAndOverlay();
-		TextureBinder.bindRenderTarget(Minecraft.getInstance().getMainRenderTarget());
+		TextureBinder.bindRenderTarget(GlTargets.mainTarget());
 
 		for (var groupEntry : byType.entrySet()) {
 			var byProgress = groupEntry.getValue();
@@ -277,7 +278,7 @@ public class InstancedDrawManager extends DrawManager<InstancedInstancer<?>> {
 			GroupKey<?> shader = groupEntry.getKey();
 
 			for (var progressEntry : byProgress.int2ObjectEntrySet()) {
-				Identifier crumblingTextureId = ModelBakery.BREAKING_LOCATIONS.get(progressEntry.getIntKey());
+				Identifier crumblingTextureId = Identifier.withDefaultNamespace("textures/block/destroy_stage_" + progressEntry.getIntKey() + ".png");
 				GpuSampler crumblingTextureSampler = RenderSystem.getSamplerCache().getRepeat(FilterMode.NEAREST);
 				TextureBinder.bind(Samplers.CRUMBLING.number, crumblingTextureId, crumblingTextureSampler);
 
@@ -306,7 +307,7 @@ public class InstancedDrawManager extends DrawManager<InstancedInstancer<?>> {
 	@Override
 	public void triggerFallback() {
 		InstancingPrograms.kill();
-		Minecraft.getInstance().levelRenderer.allChanged();
+		Minecraft.getInstance().levelExtractor.allChanged();
 	}
 
 	@Override

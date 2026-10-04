@@ -1,3 +1,4 @@
+#include "flywheel:internal/depth.glsl"
 #include "flywheel:internal/indirect/buffer_bindings.glsl"
 #include "flywheel:internal/indirect/model_descriptor.glsl"
 #include "flywheel:internal/uniforms/uniforms.glsl"
@@ -109,11 +110,13 @@ bool _flw_isVisible(uint instanceIndex, uint modelIndex) {
             float depth10 = texelFetch(_flw_depthPyramid, bounds.zy, level).r;
             float depth00 = texelFetch(_flw_depthPyramid, bounds.xy, level).r;
 
-            float depth = max(max(depth00, depth01), max(depth10, depth11));
+            // Reversed depth (26.3): farthest occluder depth is the minimum, and closer means larger.
+            float depth = min(min(depth00, depth01), min(depth10, depth11));
 
-            float depthSphere = 1. + _flw_cullData.znear / (center.z + radius);
+            float nearestEyeDepth = -(center.z + radius);
+            float depthSphere = delinearize_depth(nearestEyeDepth, _flw_cullData.znear, _flw_cullData.zfar);
 
-            isVisible = isVisible && depthSphere <= depth;
+            isVisible = isVisible && depthSphere >= depth;
         }
     }
 

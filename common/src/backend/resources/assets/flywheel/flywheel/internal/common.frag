@@ -6,7 +6,8 @@
 
 // optimize discard usage
 #if defined(GL_ARB_conservative_depth) && defined(_FLW_USE_DISCARD)
-layout (depth_greater) out float gl_FragDepth;
+// reversed depth (26.3): depth only moves away from the camera, i.e. gets smaller
+layout (depth_less) out float gl_FragDepth;
 #endif
 
 #ifdef _FLW_CRUMBLING

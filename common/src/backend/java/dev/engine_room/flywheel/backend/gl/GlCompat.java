@@ -11,8 +11,8 @@ import org.lwjgl.opengl.KHRShaderSubgroup;
 import org.lwjgl.system.MemoryStack;
 import org.lwjgl.system.MemoryUtil;
 
-import com.mojang.blaze3d.opengl.GlConst;
-import com.mojang.blaze3d.opengl.GlStateManager;
+import com.mojang.renderpearl.backend.opengl.GlConst;
+import com.mojang.renderpearl.backend.opengl.GlStateManager;
 
 import dev.engine_room.flywheel.backend.FlwBackend;
 import dev.engine_room.flywheel.backend.compile.core.Compilation;
@@ -26,9 +26,12 @@ public final class GlCompat {
 	static {
 		GLCapabilities caps;
 		try {
+			if (!GlUtil.isOpenGl()) {
+				throw new IllegalStateException("Minecraft is not using the OpenGL backend");
+			}
 			caps = GL.getCapabilities();
 		} catch (IllegalStateException e) {
-			// This happens with vulkanmod installed.
+			// This happens with vulkanmod installed, or when 26.3 runs on its Vulkan backend.
 			FlwBackend.LOGGER.warn("Failed to get GL capabilities; default Flywheel backends will be disabled.");
 			caps = null;
 		}

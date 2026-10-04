@@ -4,9 +4,9 @@ import java.io.IOException;
 
 import org.jetbrains.annotations.UnknownNullability;
 
-import com.mojang.blaze3d.opengl.GlConst;
-import com.mojang.blaze3d.opengl.GlStateManager;
-import com.mojang.blaze3d.opengl.GlTexture;
+import com.mojang.renderpearl.backend.opengl.GlConst;
+import com.mojang.renderpearl.backend.opengl.GlStateManager;
+import com.mojang.renderpearl.backend.opengl.GlTexture;
 import com.mojang.blaze3d.platform.NativeImage;
 
 import dev.engine_room.flywheel.backend.gl.GlTextureUnit;
@@ -34,7 +34,7 @@ public class NoiseTextures {
 
 		try (var is = optional.get()
 				.open()) {
-			var image = NativeImage.read(NativeImage.Format.LUMINANCE, is);
+			var image = NativeImage.read(is) /* 26.3 always decodes to RGBA; the grey noise has equal channels */;
 
 			// TODO 1.21.11: maybe we should not use DynamicTexture here and do gen/upload manually
 			BLUE_NOISE = new DynamicTexture(() -> "Flywheel Blue Noise", image);

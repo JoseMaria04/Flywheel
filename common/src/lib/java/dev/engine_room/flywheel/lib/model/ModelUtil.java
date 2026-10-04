@@ -78,7 +78,7 @@ public final class ModelUtil {
 
 	@Nullable
 	public static Material getItemMaterial(RenderType renderType) {
-		if (renderType == Sheets.cutoutBlockSheet()) {
+		if (renderType == Sheets.cutoutBlockItemSheet()) {
 			return Materials.CUTOUT_BLOCK;
 		}
 
@@ -90,12 +90,8 @@ public final class ModelUtil {
 			return Materials.TRANSLUCENT_ITEM_ENTITY_ITEM;
 		}
 
-		if (renderType == RenderTypes.glint() || renderType == RenderTypes.glintTranslucent()) {
-			return Materials.GLINT;
-		}
-		if (renderType == RenderTypes.entityGlint()) {
-			return Materials.GLINT_ENTITY;
-		}
+		// 26.3 folds the enchantment glint into the item render types (item*Glint), there is no standalone
+		// glint render type to map to Materials.GLINT anymore.
 		return null;
 	}
 
